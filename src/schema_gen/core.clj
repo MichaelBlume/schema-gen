@@ -38,6 +38,9 @@
     (= schema sch/Keyword)
     gen/keyword
 
+    (= schema sch/Bool)
+    (gen/elements [true false])
+
     (map? schema)
     (gen/fmap (partial apply merge)
               (apply gen/tuple
