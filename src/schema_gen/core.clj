@@ -98,6 +98,17 @@
       [(gen/return nil)
        (schema->gen (:schema this))])))
 
+(extend-type schema.core.NamedSchema
+  GenSchema
+  (schema->gen* [this]
+    (schema->gen (:schema this))))
+
+(extend-type schema.core.Either
+  GenSchema
+  (schema->gen* [this]
+    (gen/one-of
+      (map schema->gen (:schemas this)))))
+
 (defmacro no-impl [t]
   `(extend-type ~t
      GenSchema
