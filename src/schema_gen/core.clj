@@ -64,8 +64,3 @@ gen/sample
         :else
         (throw (ex-info "Unknown schema format in schema->gen!"
                         {:schema schema}))))
-
-(def schema )
-
-
-(gen/sample (schema->gen {:foo sch/Str :bar sch/Str sch/Str sch/Str}))
