@@ -76,3 +76,8 @@
 (extend-type schema.core.AnythingSchema
   GenSchema
   (schema->gen* [_] gen/any-printable))
+
+(extend-type schema.core.EnumSchema
+  GenSchema
+  (schema->gen* [this]
+    (gen/elements (:vs this))))
