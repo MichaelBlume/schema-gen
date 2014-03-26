@@ -34,9 +34,7 @@
   ;; know of another simple way to distingush regular keys from a
   ;; singular key representing the schema of the keys of a homogeneous
   ;; map
-  (cond (= schema sch/Any)
-        gen/any-printable
-
+  (cond
         (= schema sch/Keyword)
         gen/keyword
 
@@ -69,3 +67,7 @@
       {:gen (fn [r _size]
               (binding [four/*rand* r]
                 (gen/rose-pure (re-rand re))))})))
+
+(extend-type schema.core.AnythingSchema
+  GenSchema
+  (schema->gen* [_] gen/any-printable))
