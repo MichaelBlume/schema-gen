@@ -68,6 +68,11 @@
               (binding [four/*rand* r]
                 (gen/rose-pure (re-rand re))))})))
 
+(extend-type schema.core.EqSchema
+  GenSchema
+  (schema->gen* [this]
+    (gen/return (:v this))))
+
 (extend-type schema.core.AnythingSchema
   GenSchema
   (schema->gen* [_] gen/any-printable))
