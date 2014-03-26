@@ -35,30 +35,30 @@
   ;; singular key representing the schema of the keys of a homogeneous
   ;; map
   (cond
-        (= schema sch/Keyword)
-        gen/keyword
+    (= schema sch/Keyword)
+    gen/keyword
 
-        (map? schema)
-        (gen/fmap (partial apply merge)
-                  (apply gen/tuple
-                    (record->gen (filter (comp keyword? first) schema))
-                    (for [[k v] schema :when (not (keyword? k))]
-                      (gen/map (schema->gen k) (schema->gen v)))))
+    (map? schema)
+    (gen/fmap (partial apply merge)
+              (apply gen/tuple
+                (record->gen (filter (comp keyword? first) schema))
+                (for [[k v] schema :when (not (keyword? k))]
+                  (gen/map (schema->gen k) (schema->gen v)))))
 
-        (satisfies? GenSchema schema)
-        (schema->gen* schema)
+    (satisfies? GenSchema schema)
+    (schema->gen* schema)
 
-        (= schema sch/Str)
-        gen/string-ascii ; bad idea to exclude unicode from tests?
+    (= schema sch/Str)
+    gen/string-ascii ; bad idea to exclude unicode from tests?
 
-        (and
-          (vector? schema)
-          (= (count schema) 1))
-        (gen/vector (schema->gen (first schema)))
+    (and
+      (vector? schema)
+      (= (count schema) 1))
+    (gen/vector (schema->gen (first schema)))
 
-        :else
-        (throw (ex-info "Unknown schema format in schema->gen!"
-                        {:schema schema}))))
+    :else
+    (throw (ex-info "Unknown schema format in schema->gen!"
+                    {:schema schema}))))
 
 (extend-type java.util.regex.Pattern
   GenSchema
