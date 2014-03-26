@@ -53,12 +53,6 @@
         (= schema sch/Str)
         gen/string-ascii ; bad idea to exclude unicode from tests?
 
-        (instance? java.util.regex.Pattern schema)
-        (let [re (re-randify-regex schema)]
-          {:gen (fn [r _size]
-                  (binding [four/*rand* r]
-                    (gen/rose-pure (re-rand re))))})
-
         (and
           (vector? schema)
           (= (count schema) 1))
@@ -67,3 +61,11 @@
         :else
         (throw (ex-info "Unknown schema format in schema->gen!"
                         {:schema schema}))))
+
+(extend-type java.util.regex.Pattern
+  GenSchema
+  (schema->gen* [schema]
+    (let [re (re-randify-regex schema)]
+      {:gen (fn [r _size]
+              (binding [four/*rand* r]
+                (gen/rose-pure (re-rand re))))})))
