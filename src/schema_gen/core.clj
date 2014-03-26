@@ -22,6 +22,9 @@
                                 [k (schema->gen schema)])
                               record)))
 
+(defprotocol GenSchema
+  (schema->gen* [this]))
+
 (defn schema->gen
   "Oh man here we go!"
   [schema]
@@ -44,6 +47,8 @@
                     (for [[k v] schema :when (not (keyword? k))]
                       (gen/map (schema->gen k) (schema->gen v)))))
 
+        (satisfies? GenSchema schema)
+        (schema->gen* schema)
 
         (= schema sch/Str)
         gen/string-ascii ; bad idea to exclude unicode from tests?
