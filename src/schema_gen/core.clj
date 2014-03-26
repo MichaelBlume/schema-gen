@@ -119,3 +119,4 @@
 (no-impl schema.core.Predicate)
 (no-impl schema.core.Protocol)
 (no-impl schema.core.Both)
+(no-impl schema.core.ConditionalSchema)
