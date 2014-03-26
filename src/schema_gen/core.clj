@@ -90,3 +90,12 @@
   GenSchema
   (schema->gen* [this]
     (gen/elements (:vs this))))
+
+(defmacro no-impl [t]
+  `(extend-type ~t
+     GenSchema
+     (schema->gen* [_#]
+       (throw (ex-info "Schema type not implemented"
+                       {:type ~t})))))
+
+(no-impl schema.core.Predicate)
