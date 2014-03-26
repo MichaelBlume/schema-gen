@@ -45,7 +45,7 @@
     (or
       (= schema sch/Num)
       (= schema sch/Int))
-    (gen/choose 0 Integer/MAX_VALUE)
+    gen/int
 
     (map? schema)
     (gen/fmap (partial apply merge)
