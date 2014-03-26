@@ -41,6 +41,12 @@
     (= schema sch/Bool)
     (gen/elements [true false])
 
+    ;; Not sure I like this. Thoughts?
+    (or
+      (= schema sch/Num)
+      (= schema sch/Int))
+    (gen/choose 0 Integer/MAX_VALUE)
+
     (map? schema)
     (gen/fmap (partial apply merge)
               (apply gen/tuple
