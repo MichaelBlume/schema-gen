@@ -99,3 +99,4 @@
                        {:type ~t})))))
 
 (no-impl schema.core.Predicate)
+(no-impl schema.core.Protocol)
