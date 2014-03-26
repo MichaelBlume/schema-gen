@@ -47,15 +47,15 @@
     (= schema sch/Num)
     (gen/fmap float gen/ratio)
 
+    (satisfies? GenSchema schema)
+    (schema->gen* schema)
+
     (map? schema)
     (gen/fmap (partial apply merge)
               (apply gen/tuple
                 (record->gen (filter (comp keyword? first) schema))
                 (for [[k v] schema :when (not (keyword? k))]
                   (gen/map (schema->gen k) (schema->gen v)))))
-
-    (satisfies? GenSchema schema)
-    (schema->gen* schema)
 
     (= schema sch/Str)
     gen/string-ascii ; bad idea to exclude unicode from tests?
