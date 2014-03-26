@@ -22,8 +22,6 @@
                                 [k (schema->gen schema)])
                               record)))
 
-gen/sample
-
 (defn schema->gen
   "Oh man here we go!"
   [schema]
