@@ -91,6 +91,13 @@
   (schema->gen* [this]
     (gen/elements (:vs this))))
 
+(extend-type schema.core.Maybe
+  GenSchema
+  (schema->gen* [this]
+    (gen/one-of
+      [(gen/return nil)
+       (schema->gen (:schema this))])))
+
 (defmacro no-impl [t]
   `(extend-type ~t
      GenSchema
