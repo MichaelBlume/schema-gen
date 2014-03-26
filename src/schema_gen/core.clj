@@ -41,11 +41,11 @@
     (= schema sch/Bool)
     (gen/elements [true false])
 
-    ;; Not sure I like this. Thoughts?
-    (or
-      (= schema sch/Num)
-      (= schema sch/Int))
+    (= schema sch/Int)
     gen/int
+
+    (= schema sch/Num)
+    (gen/fmap float gen/ratio)
 
     (map? schema)
     (gen/fmap (partial apply merge)
