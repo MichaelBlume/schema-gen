@@ -120,3 +120,4 @@
 (no-impl schema.core.Protocol)
 (no-impl schema.core.Both)
 (no-impl schema.core.ConditionalSchema)
+(no-impl schema.core.Recursive)
